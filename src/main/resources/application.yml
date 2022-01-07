@@ -1,0 +1,50 @@
+server:
+  port: 8086
+spring:
+  main:
+    allow-bean-definition-overriding: true
+
+  shardingsphere:
+    datasource:
+      names: ds1
+      #??? access_device
+      ds1:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://localhost:3306/shardingJdbc?useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+        username: root
+        password: zhaojun98
+
+    #???????
+    sharding:
+      # ????
+      tables:
+        t_user:
+          actual-data-nodes: ds1.t_user_${0..3}
+          table-strategy:
+            # 1.inline ???
+            inline:
+              sharding-column: id
+              algorithm-expression: t_user_${id.longValue() % 4}
+
+
+            #2.???????
+#            standard:
+            #sharding-column=id
+            #precise-algorithm-class-name: com.yl.common.MyPreciseShardingAlgorithm
+            #3.??????
+#              sharding-column: create_time
+#              precise-algorithm-class-name: com.yl.common.MyPreciseShardingAlgorithm
+    props:
+      sql:
+        show: true
+
+mybatis-plus:
+  #  configuration:
+  #    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl #??sql??
+  mapper-locations: classpath*:/mapper/**Mapper.xml
+  global-config:
+    db-config:
+      table-prefix: t_
+    configuration-properties:
+      prefix: t_ # ???sql??????
