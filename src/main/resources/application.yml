@@ -7,7 +7,7 @@ spring:
   shardingsphere:
     datasource:
       names: ds1
-      #??? access_device
+      #数据库 access_device
       ds1:
         type: com.alibaba.druid.pool.DruidDataSource
         driver-class-name: com.mysql.cj.jdbc.Driver
@@ -15,24 +15,24 @@ spring:
         username: root
         password: zhaojun98
 
-    #???????
+    #默认数据源名字
     sharding:
-      # ????
+      # 分表配置
       tables:
         t_user:
           actual-data-nodes: ds1.t_user_${0..3}
           table-strategy:
-            # 1.inline ???
+            # 1.inline 表达式
             inline:
               sharding-column: id
               algorithm-expression: t_user_${id.longValue() % 4}
 
 
-            #2.???????
+            #2.自定义分表算法
 #            standard:
             #sharding-column=id
             #precise-algorithm-class-name: com.yl.common.MyPreciseShardingAlgorithm
-            #3.??????
+            #3.按照时间分表
 #              sharding-column: create_time
 #              precise-algorithm-class-name: com.yl.common.MyPreciseShardingAlgorithm
     props:
@@ -41,10 +41,10 @@ spring:
 
 mybatis-plus:
   #  configuration:
-  #    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl #??sql??
+  #    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl #开启sql日志
   mapper-locations: classpath*:/mapper/**Mapper.xml
   global-config:
     db-config:
       table-prefix: t_
     configuration-properties:
-      prefix: t_ # ???sql??????
+      prefix: t_ # 自定义sql中表名带前缀
