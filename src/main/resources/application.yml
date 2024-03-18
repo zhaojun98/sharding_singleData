@@ -2,7 +2,11 @@ server:
   port: 8086
 spring:
   main:
+    allow-circular-references: true
     allow-bean-definition-overriding: true
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
 
   shardingsphere:
     datasource:
@@ -48,3 +52,17 @@ mybatis-plus:
       table-prefix: t_
     configuration-properties:
       prefix: t_ # 自定义sql中表名带前缀
+
+
+
+#swagger文档开启/关闭
+springfox:
+  documentation:
+    auto-startup: true
+
+swagger:
+  apiProfile:
+    path: /
+#knife4j
+knife4j:
+  production: false # 开启/屏蔽文档资源
