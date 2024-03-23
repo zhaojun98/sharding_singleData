@@ -9,10 +9,9 @@
     <groupId>com.yl</groupId>
     <artifactId>sharding-common</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name></name>
+    <name>sharding-common</name>
     <description>sharding-common</description>
     <packaging>jar</packaging>
-
 
     <dependencies>
         <!--添加Swagger3依赖-->
@@ -42,4 +41,5 @@
         </dependency>
 
     </dependencies>
+
 </project>
