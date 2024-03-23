@@ -1,1 +1,26 @@
 
+spring:
+  shardingsphere: # 数据源
+    datasource:
+      ds0:
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        password: zhaojun98
+        type: com.alibaba.druid.pool.DruidDataSource
+        url: jdbc:mysql://localhost:3306/ds_0?characterEncoding=utf-8
+        username: root
+      ds1:
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        password: zhaojun98
+        type: com.alibaba.druid.pool.DruidDataSource
+        url: jdbc:mysql://localhost:3306/ds_1?characterEncoding=utf-8
+        username: root
+      names: ds0,ds1
+    sharding:
+      tables:
+        lou_dong: #绑定loudong表所在节点
+          actual-data-nodes: ds1.loudong
+        user: # 绑定user表所在节点
+          actual-data-nodes: ds0.user
+          key-generator:
+            column: id
+            type: SNOWFLAKE

@@ -18,7 +18,6 @@
     <modules>
         <module>sharding-read-write</module>
         <module>sharding-common</module>
-        <module>sharding-demo</module>
         <module>sharding-vertical-table</module>
     </modules>
     <properties>
